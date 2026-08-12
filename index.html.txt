@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAVEX WHEELLVAULT — Cars, Trucks & Bikes</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --border: #e5e5e5;
+      --hover: #f5f5f5;
+      --accent: #2563eb;
+      --positive: #16a34a;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #f5f5f5;
+        --text-secondary: #aaaaaa;
+        --text-muted: #666666;
+        --border: #222222;
+        --hover: #1a1a1a;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 32px; height: 32px;
+      border: 2px solid var(--text);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 24px 56px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--hover); }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 0 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      max-width: 1200px;
+      margin-left: auto; margin-right: auto;
+    }
+    .tab {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+    .tab:hover:not(.active) { color: var(--text); }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 24px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+      background: var(--bg);
+    }
+    .card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+    .card-img {
+      height: 180px;
+      background: linear-gradient(135deg, var(--hover) 0%, var(--border) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+    }
+    .card-body { padding: 18px; }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+    }
+    .tag-sale { background: rgba(22,163,74,0.12); color: var(--positive); }
+    .tag-rent { background: rgba(37,99,235,0.12); color: var(--accent); }
+    .card-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .card-meta { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
+    .card-price { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .card-price span { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+
+    /* Sections */
+    .section {
+      padding: 64px 24px;
+      border-top: 1px solid var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .section > p { color: var(--text-secondary); margin-bottom: 32px; font-size: 15px; }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .service {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      background: var(--hover);
+    }
+    .service h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .service p { font-size: 14px; color: var(--text-secondary); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--hover);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item div strong { font-size: 15px; display: block; margin-bottom: 2px; }
+    .contact-item div span, .contact-item div a { font-size: 14px; color: var(--text-secondary); }
+    .contact-item div a:hover { color: var(--text); text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 32px; }
+      .nav-links { gap: 16px; font-size: 13px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-icon">R</div>
+      <span>RAVEX WHEELLVAULT</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" onclick="showSection('inventory'); return false;" id="nav-inventory" class="active">Inventory</a>
+      <a href="#" onclick="showSection('services'); return false;">Services</a>
+      <a href="#" onclick="showSection('contact'); return false;">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>RAVEX WHEELLVAULT</h1>
+    <p>Premium cars, trucks, and bikes for sale and rent. Your trusted partner for every journey — from city streets to open highways.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="showSection('inventory')">Browse Inventory</button>
+      <button class="btn btn-secondary" onclick="showSection('contact')">Get in Touch</button>
+    </div>
+  </section>
+
+  <!-- Inventory -->
+  <div id="panel-inventory" class="panel active">
+    <div class="tabs">
+      <button class="tab active" onclick="filterVehicles('all', this)">All Vehicles</button>
+      <button class="tab" onclick="filterVehicles('car', this)">Cars</button>
+      <button class="tab" onclick="filterVehicles('truck', this)">Trucks</button>
+      <button class="tab" onclick="filterVehicles('bike', this)">Bikes</button>
+    </div>
+    <div class="grid" id="vehicle-grid">
+      <!-- Cars -->
+      <div class="card" data-type="car">
+        <div class="card-img">🚗</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Toyota Camry XSE</div>
+          <div class="card-meta">2023 · 18,500 km · Automatic</div>
+          <div class="card-price">$28,500 <span>USD</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="car">
+        <div class="card-img">🚙</div>
+        <div class="card-body">
+          <div class="tag tag-rent">For Rent</div>
+          <div class="card-title">BMW X5 M Sport</div>
+          <div class="card-meta">2024 · SUV · Diesel</div>
+          <div class="card-price">$120 <span>/ day</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="car">
+        <div class="card-img">🚗</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Mercedes C-Class</div>
+          <div class="card-meta">2022 · 32,000 km · Automatic</div>
+          <div class="card-price">$35,900 <span>USD</span></div>
+        </div>
+      </div>
+      <!-- Trucks -->
+      <div class="card" data-type="truck">
+        <div class="card-img">🚚</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Ford F-150 Raptor</div>
+          <div class="card-meta">2023 · 12,000 km · 4x4</div>
+          <div class="card-price">$62,000 <span>USD</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="truck">
+        <div class="card-img">🚛</div>
+        <div class="card-body">
+          <div class="tag tag-rent">For Rent</div>
+          <div class="card-title">Isuzu NQR Box Truck</div>
+          <div class="card-meta">2021 · Commercial · Diesel</div>
+          <div class="card-price">$180 <span>/ day</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="truck">
+        <div class="card-img">🚚</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Ram 2500 Heavy Duty</div>
+          <div class="card-meta">2024 · 8,000 km · Turbo Diesel</div>
+          <div class="card-price">$58,500 <span>USD</span></div>
+        </div>
+      </div>
+      <!-- Bikes -->
+      <div class="card" data-type="bike">
+        <div class="card-img">🏍️</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Yamaha R1</div>
+          <div class="card-meta">2023 · 4,200 km · 998cc</div>
+          <div class="card-price">$17,200 <span>USD</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="bike">
+        <div class="card-img">🛵</div>
+        <div class="card-body">
+          <div class="tag tag-rent">For Rent</div>
+          <div class="card-title">Vespa GTS 300</div>
+          <div class="card-meta">2024 · Scooter · 278cc</div>
+          <div class="card-price">$45 <span>/ day</span></div>
+        </div>
+      </div>
+      <div class="card" data-type="bike">
+        <div class="card-img">🏍️</div>
+        <div class="card-body">
+          <div class="tag tag-sale">For Sale</div>
+          <div class="card-title">Ducati Panigale V4</div>
+          <div class="card-meta">2024 · 1,100 km · 1,103cc</div>
+          <div class="card-price">$28,900 <span>USD</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div id="panel-services" class="panel">
+    <section class="section">
+      <h2>Our Services</h2>
+      <p>Everything you need to get moving — whether you want to own or just ride.</p>
+      <div class="services">
+        <div class="service">
+          <div class="service-icon">🚘</div>
+          <h3>Vehicle Sales</h3>
+          <p>Curated inventory of cars, trucks, and bikes. Every vehicle inspected and certified.</p>
+        </div>
+        <div class="service">
+          <div class="service-icon">🔑</div>
+          <h3>Flexible Rentals</h3>
+          <p>Daily, weekly, and monthly rental plans with full insurance coverage included.</p>
+        </div>
+        <div class="service">
+          <div class="service-icon">🔧</div>
+          <h3>Maintenance & Support</h3>
+          <p>Post-sale servicing, warranty claims, and 24/7 roadside assistance.</p>
+        </div>
+        <div class="service">
+          <div class="service-icon">💰</div>
+          <h3>Financing Options</h3>
+          <p>Competitive loan rates and lease-to-own plans tailored to your budget.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Contact -->
+  <div id="panel-contact" class="panel">
+    <section class="section">
+      <h2>Contact Us</h2>
+      <p>Ready to buy, rent, or just have questions? Reach out anytime.</p>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:ravexwheelvaultunivers@gmail.com">ravexwheelvaultunivers@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📘</div>
+          <div>
+            <strong>Facebook</strong>
+            <a href="https://facebook.com/RAVEXwheelvault" target="_blank">RAVEXwheelvault</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <strong>Location</strong>
+            <span>Open by appointment</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <strong>Hours</strong>
+            <span>Mon – Sat: 9:00 – 18:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    © 2026 RAVEX WHEELLVAULT. All rights reserved.
+  </footer>
+
+  <script>
+    function showSection(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const panel = document.getElementById('panel-' + name);
+      if (panel) panel.classList.add('active');
+      const nav = document.getElementById('nav-' + name);
+      if (nav) nav.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterVehicles(type, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
